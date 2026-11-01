@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /dashboard
+Disallow: /login
+Disallow: /settings/
+Disallow: /search
+Disallow: /saved-posts
+Disallow: /livewire/
+Disallow: /comments/
+Disallow: /read/
+
+Sitemap: https://libang.org.np/sitemap.xml

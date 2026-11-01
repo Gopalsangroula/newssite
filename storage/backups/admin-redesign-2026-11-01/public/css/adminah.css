@@ -1,0 +1,113 @@
+*{
+    font-family: "Roboto", sans-serif;
+}
+a{
+    color: #333;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+}
+
+.ah-model{
+    display:none; 
+    position:fixed; 
+    top:0; 
+    left:0; 
+    right:0; 
+    bottom:0; 
+    background:#0008; 
+    z-index:1000; 
+    padding:2rem;
+}
+.ah-library{
+    background:white; 
+    max-width:70vw;
+    margin:auto; 
+    padding:1rem; 
+    overflow:auto; 
+    height:85%;
+}
+.ah-img-list{
+    display:grid;  
+    grid-template-columns: auto auto auto auto;
+    gap:15px;
+    column-gap: 30px;
+}
+.ah-img-list img{
+    height: 220px;
+    object-fit: cover;
+}
+
+.uk-form-label{
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.ah-admin-title{
+    font-family: 'Roboto';
+    font-weight: 500;
+}
+
+.uk-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.uk-width-2-3\@m,
+.uk-width-1-3\@m,
+.uk-width-1-4\@m,
+.uk-width-3-4\@m {
+    box-sizing: border-box;
+    min-height: 100px;
+}
+
+.choices__inner {
+    min-height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tinymce-editor {
+    min-height: 800px;
+    width: 100%;
+}
+.tox-tinymce {
+    height: 750px !important;
+}
+img.uk-width-small {
+    max-width: 150px;
+    height: auto;
+}
+
+#imageGrid img {
+    object-fit: cover;
+    width: 100%;
+    height: 150px;
+}
+
+.uk-modal-full .uk-modal-dialog {
+    width: 100%;
+    max-width: none;
+}
+.ah-select{
+        text-transform: initial;
+}
+.ah-admi-sidebar{
+    background-color: #fafafa;
+    height: 100%;
+}
+.ah-cms-sidebar-list .uk-nav-header, .uk-nav-default>li>a{
+    color: rgba(0, 0, 0, 0.533) !important;
+}
+.ah-cms-title{
+    color: #1b3664;
+}
+@media (max-width: 575px) {
+.admin-mobile-adj-ah{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+}

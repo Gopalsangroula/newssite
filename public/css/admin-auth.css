@@ -1,0 +1,184 @@
+/* ==========================================================================
+   Login, forgot password and reset password
+   ========================================================================== */
+body.ah-auth{
+    --color-accent: #2456d6;
+    --color-accent-content: #2456d6;
+    --color-accent-foreground: #ffffff;
+    margin: 0;
+    background: #ffffff;
+    color: #111a2e;
+}
+.ah-auth-shell{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 100vh;
+}
+@media (min-width: 960px){
+    .ah-auth-shell{
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    }
+}
+
+/* Brand panel */
+.ah-auth-brand{
+    display: none;
+    position: relative;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    background: radial-gradient(120% 90% at 50% 10%, #1b3266 0%, #0f1c36 62%);
+    color: #ffffff;
+    text-align: center;
+}
+@media (min-width: 960px){
+    .ah-auth-brand{
+        display: flex;
+    }
+}
+
+/* The emblem sits inside a slowly turning ring of the logo's red, gold and blue */
+.ah-auth-emblem{
+    position: relative;
+    width: 212px;
+    height: 212px;
+    margin-bottom: 32px;
+    animation: ah-auth-rise 0.7s ease-out both, ah-auth-float 6s ease-in-out 0.7s infinite;
+}
+.ah-auth-emblem::before{
+    content: "";
+    position: absolute;
+    inset: -7px;
+    border-radius: 50%;
+    background: conic-gradient(#f2c230, #d9342b, #3b6fe0, #f2c230);
+    filter: blur(0.5px);
+    animation: ah-auth-spin 9s linear infinite;
+}
+.ah-auth-emblem::after{
+    content: "";
+    position: absolute;
+    inset: -26px;
+    z-index: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(242, 194, 48, 0.32) 0%, rgba(242, 194, 48, 0) 68%);
+    animation: ah-auth-glow 4s ease-in-out infinite;
+}
+.ah-auth-emblem img{
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #ffffff;
+    object-fit: cover;
+}
+.ah-auth-name{
+    margin: 0;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.35;
+    animation: ah-auth-rise 0.7s ease-out 0.12s both;
+}
+.ah-auth-subname{
+    margin: 4px 0 0;
+    color: #bcc6d9;
+    font-size: 14px;
+    animation: ah-auth-rise 0.7s ease-out 0.2s both;
+}
+.ah-auth-motto{
+    max-width: 380px;
+    margin: 24px 0 0;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    color: #dbe2ef;
+    font-size: 15px;
+    line-height: 1.7;
+    animation: ah-auth-rise 0.7s ease-out 0.28s both;
+}
+
+/* Form panel */
+.ah-auth-main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+}
+.ah-auth-panel{
+    width: 100%;
+    max-width: 380px;
+    animation: ah-auth-rise 0.6s ease-out both;
+}
+.ah-auth-logo{
+    display: block;
+    margin-bottom: 28px;
+    text-align: center;
+}
+.ah-auth-logo img{
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    max-height: 64px;
+}
+.ah-auth-back{
+    display: block;
+    margin-top: 24px;
+    color: #5f6b84;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+.ah-auth-back:hover{
+    color: #2456d6;
+    text-decoration: none;
+}
+
+@keyframes ah-auth-rise{
+    from{
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes ah-auth-float{
+    0%, 100%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-8px);
+    }
+}
+@keyframes ah-auth-spin{
+    to{
+        transform: rotate(360deg);
+    }
+}
+@keyframes ah-auth-glow{
+    0%, 100%{
+        opacity: 0.55;
+    }
+    50%{
+        opacity: 1;
+    }
+}
+@media (prefers-reduced-motion: reduce){
+    .ah-auth *,
+    .ah-auth *::before,
+    .ah-auth *::after{
+        animation: none !important;
+    }
+}
+
+html.dark body.ah-auth{
+    background: #0f1c36;
+    color: #f3f5f9;
+}
+html.dark .ah-auth-back{
+    color: #bcc6d9;
+}

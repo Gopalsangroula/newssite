@@ -1,0 +1,267 @@
+/* ==========================================================================
+   The comment button and comment section on a post.
+   Colours come from site-header.css.
+   ========================================================================== */
+
+.post-actions {
+    gap: 10px 14px;
+}
+
+.post-comment-button {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    background: var(--site-blue);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.post-comment-button:hover {
+    background: var(--site-blue-deep);
+    color: #fff;
+}
+
+.post-comment-button__count {
+    min-width: 22px;
+    padding: 0 6px;
+    box-sizing: border-box;
+    border-radius: 11px;
+    background: #fff;
+    color: var(--site-blue);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 22px;
+    text-align: center;
+}
+
+.pc {
+    margin-top: 40px;
+    padding-top: 10px;
+    border-top: 3px solid var(--site-ink);
+    color: var(--site-text);
+    font-size: 17px;
+    line-height: 1.6;
+    scroll-margin-top: 70px;
+}
+
+.pc__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 18px;
+    color: var(--site-ink);
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.pc__count {
+    min-width: 30px;
+    padding: 0 8px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    background: #fdecef;
+    color: var(--site-red);
+    font-size: 17px;
+    line-height: 30px;
+    text-align: center;
+}
+
+/* Form
+   ========================================================================== */
+
+.pc__form {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 18px;
+    padding: 20px 22px;
+    border-radius: 6px;
+    background: var(--site-wash);
+}
+
+.pc__field--full,
+.pc__foot {
+    grid-column: 1 / -1;
+}
+
+.pc__field label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--site-ink);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.pc__field .pc__hint {
+    color: var(--site-muted);
+    font-size: 14.5px;
+    font-weight: 400;
+}
+
+.pc .uk-input,
+.pc .uk-textarea {
+    border-radius: 4px;
+    color: var(--site-ink);
+    font-size: 17px;
+}
+
+.pc .uk-input:focus,
+.pc .uk-textarea:focus {
+    border-color: var(--site-blue);
+}
+
+.pc__error {
+    margin: 4px 0 0;
+    color: var(--site-red);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* Off screen rather than display: none, which many bots know to skip. */
+.pc__trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.pc__foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    align-items: center;
+}
+
+.pc__submit {
+    padding: 8px 22px;
+    border: 0;
+    border-radius: 4px;
+    background: var(--site-blue);
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.pc__submit:hover {
+    background: var(--site-blue-deep);
+}
+
+.pc__submit[disabled] {
+    opacity: .6;
+    cursor: default;
+}
+
+.pc__note {
+    margin: 0;
+    color: var(--site-muted);
+    font-size: 15px;
+}
+
+.pc__sent {
+    padding: 16px 20px;
+    border-left: 4px solid var(--site-blue);
+    border-radius: 4px;
+    background: #f1f5fb;
+}
+
+.pc__sent p {
+    margin: 0 0 6px;
+    color: var(--site-ink);
+}
+
+.pc__again {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--site-blue);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pc__again:hover {
+    color: var(--site-red);
+}
+
+/* Comments
+   ========================================================================== */
+
+.pc__list {
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pc__item {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 12px;
+    padding-block: 16px;
+    border-bottom: 1px solid var(--site-line);
+}
+
+.pc__item:last-child {
+    border-bottom: 0;
+}
+
+.pc__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--site-blue);
+    color: #fff;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.pc__byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 12px;
+    align-items: baseline;
+    margin: 0;
+}
+
+.pc__byline strong {
+    color: var(--site-ink);
+    font-size: 17.5px;
+    font-weight: 700;
+}
+
+.pc__byline time {
+    color: var(--site-muted);
+    font-size: 14.5px;
+}
+
+.pc__body {
+    margin: 2px 0 0;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}
+
+.pc__empty {
+    margin: 16px 0 0;
+    color: var(--site-muted);
+}
+
+@media (max-width: 639.98px) {
+    .pc__form {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 16px;
+    }
+
+    .pc__title {
+        font-size: 24px;
+    }
+}

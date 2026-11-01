@@ -1,0 +1,294 @@
+/* ==========================================================================
+   Admin lists: Posts, Pages, Users, Roles and their forms.
+   Builds on the shared classes in adminah.css and only adds what they lack.
+   ========================================================================== */
+
+/* Messages above a card */
+.ah-flash{
+    margin: 0 0 16px;
+    border-radius: 6px;
+}
+
+/* Form cards */
+.ah-form-card{
+    margin-bottom: 20px;
+}
+.ah-form-card--narrow{
+    max-width: 760px;
+}
+.ah-card-grid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    align-items: start;
+}
+.ah-card-grid .ah-form-card{
+    margin-bottom: 0;
+}
+
+/* Tables */
+.ah-card > .ah-table-wrap:last-child{
+    border-radius: 0 0 8px 8px;
+}
+.ah-table-wrap.ah-is-loading{
+    opacity: 0.55;
+    transition: opacity 0.15s;
+}
+.ah-table.uk-table-hover tbody tr:hover{
+    background: #f8f9fb;
+}
+.ah-table.uk-table .ah-col-thumb{
+    width: 72px;
+    padding-right: 0;
+}
+.ah-table.uk-table .ah-col-avatar{
+    width: 36px;
+    padding-right: 0;
+}
+.ah-table.uk-table .ah-col-main{
+    min-width: 220px;
+}
+.ah-table.uk-table td.ah-col-date{
+    color: var(--ah-muted);
+    font-size: 13px;
+    white-space: nowrap;
+}
+.ah-table.uk-table .ah-col-text{
+    min-width: 180px;
+}
+/* Narrow numeric column, ready for a Views count on the Posts list */
+.ah-table.uk-table .ah-col-num{
+    width: 1%;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+}
+.ah-table.uk-table .ah-col-perms{
+    min-width: 320px;
+}
+.ah-clamp-2{
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.ah-thumb-link{
+    display: block;
+    width: 72px;
+}
+.ah-muted{
+    color: var(--ah-muted);
+}
+.ah-badges{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.ah-row-actions a,
+.ah-row-actions button{
+    white-space: nowrap;
+}
+@media (min-width: 1280px){
+    .ah-table .ah-row-actions{
+        flex-wrap: nowrap;
+    }
+}
+
+/* Form fields */
+.ah-form-grid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 20px;
+}
+.ah-form-grid--single{
+    grid-template-columns: minmax(0, 1fr);
+}
+.ah-field{
+    min-width: 0;
+}
+.ah-field--full{
+    grid-column: 1 / -1;
+}
+.ah-fieldset{
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.ah-field .uk-form-label,
+.ah-fieldset .uk-form-label{
+    display: block;
+    margin-bottom: 6px;
+    padding: 0;
+    color: var(--ah-text);
+    font-size: 14px;
+}
+.ah-required{
+    color: var(--ah-danger);
+}
+.ah-field-hint{
+    margin-top: 4px;
+    color: var(--ah-muted);
+    font-size: 12px;
+}
+.ah-field-error{
+    margin-top: 4px;
+    color: var(--ah-danger);
+    font-size: 13px;
+}
+.ah-admin .uk-input.uk-form-danger,
+.ah-admin .uk-select.uk-form-danger,
+.ah-admin .uk-textarea.uk-form-danger,
+.ah-field--error .uk-input{
+    border-color: var(--ah-danger);
+}
+.ah-form-actions{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+}
+.ah-password-toggle{
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+/* Page access grid on the Roles page */
+.ah-access-table.uk-table th:not(:first-child),
+.ah-access-table.uk-table td:not(:first-child){
+    text-align: center;
+}
+
+/* Checkbox groups (roles, permissions) */
+.ah-option-panel{
+    padding: 10px 12px;
+    border: 1px solid var(--ah-border);
+    border-radius: 6px;
+    background: #f8f9fb;
+}
+.ah-option-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 8px 16px;
+}
+.ah-option{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    color: var(--ah-text);
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+.ah-option .uk-checkbox{
+    flex: none;
+    margin: 0;
+}
+.ah-option--all{
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--ah-border);
+    font-weight: 500;
+    text-transform: none;
+}
+
+/* File picker with a live image preview */
+.ah-file{
+    display: block;
+    width: 100%;
+    color: var(--ah-muted);
+    font-size: 14px;
+}
+.ah-file::file-selector-button{
+    margin-right: 10px;
+    padding: 7px 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 6px;
+    background: #fff;
+    color: var(--ah-text);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 500;
+}
+.ah-file::file-selector-button:hover{
+    background: var(--ah-bg);
+}
+.ah-image-preview{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    color: var(--ah-muted);
+    font-size: 12px;
+}
+.ah-image-preview img{
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Saving overlay */
+.ah-busy{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--ah-text);
+    font-size: 14px;
+}
+
+/* Confirmation modals */
+.ah-modal .uk-modal-dialog{
+    overflow: hidden;
+    border-radius: 8px;
+}
+.ah-modal .uk-modal-header,
+.ah-modal .uk-modal-body,
+.ah-modal .uk-modal-footer{
+    padding: 16px 20px;
+}
+.ah-modal .uk-modal-title{
+    color: var(--ah-text);
+    font-size: 20px;
+    font-weight: 600;
+}
+.ah-modal .uk-button-danger,
+.ah-form-actions .uk-button-danger{
+    background: var(--ah-danger);
+}
+.ah-modal .uk-button-danger:hover,
+.ah-form-actions .uk-button-danger:hover{
+    background: #912018;
+}
+
+@media (max-width: 959px){
+    .ah-card-grid{
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+@media (max-width: 639px){
+    .ah-form-grid{
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .ah-toolbar-grow,
+    .ah-toolbar .uk-button{
+        flex: 1 1 100%;
+    }
+    .ah-toolbar .uk-select{
+        flex: 1 1 130px;
+        min-width: 0;
+    }
+    .ah-form-actions .uk-button{
+        flex: 1 1 auto;
+    }
+}

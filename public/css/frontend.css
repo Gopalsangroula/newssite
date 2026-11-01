@@ -1,0 +1,446 @@
+* {
+    font-family: "Mukta", sans-serif;
+}
+
+a {
+    color: #040707;
+    text-decoration: none !important;
+    font-family: 'Mukta', sans-serif;
+    transition: all .3s ease 0s;
+
+}
+
+a:hover {
+    text-decoration: none;
+    color: #424242;
+}
+
+img {
+    max-width: 100%;
+}
+
+iframe {
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Mukta', sans-serif;
+    font-weight: 500;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+    font-family: 'Mukta', sans-serif;
+}
+
+.ah-banner-title {
+    color: #102c57;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+    line-height: 1.3;
+    font-size: 68px;
+    line-height: 1.2;
+    font-family: "Mukta", sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 0;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.banner-section p {
+    font-size: 22px;
+    opacity: 0.68;
+    font-weight: 400;
+    margin-top: 24px;
+    margin-bottom: 0;
+}
+
+.banner-list {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+}
+
+.banner-list:last-child {
+    border-bottom: none;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.banner-subtitle-ah {
+    font-size: 26px;
+    font-weight: 600;
+    color: #606060;
+    font-family: 'Mukta';
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.np-border {
+    background-color: #fff;
+    border-bottom: 2px solid #dfdfdf;
+    border-top: 1px solid #dfdfdf;
+}
+
+.top-nav {
+    background: #007e21;
+}
+
+.top-nav .uk-navbar-nav>li>a {
+    min-height: 38px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: initial;
+}
+.ah-limbu-para{
+    font-family: 'Mukta';
+    font-size: 21px;
+    line-height: 1.5;
+}
+.Ah-about-title{
+    font-size: 54px;
+}
+.ah-read-more{
+    font-size: 16px;
+    font-weight: 500;
+    padding: 2px 30px;
+    border: 1px solid #000;
+}
+.np-border .uk-navbar-nav>li>a {
+    font-size: 20px;
+    padding: 0px !important;
+    font-weight: 500;
+    font-family: 'Mukta';
+    color: #000;
+    text-transform: initial;
+}
+.banner-home-img{
+    background: #ccffda;
+    height: 100%;
+}
+.tranding-item {
+    padding: 10px 0px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tranding-item:last-child {
+    border-bottom: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.ah-global-main {
+    background: rgba(34, 34, 34, .8);
+}
+
+.ah-card-title {
+    font-size: 22px;
+    line-height: 28px;
+}
+
+.ah-single-heading {
+    font-family: "Mukta", sans-serif;
+    font-size: 65px;
+    display: block;
+    line-height: 70px;
+    margin-bottom: 30px;
+    padding-left: 15px;
+    margin-top: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.ah-post-entry p {
+    font-size: 1.4rem;
+    line-height: 1.7;
+    color: #111;
+    text-align: justify;
+}
+
+.ah-author-image {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.ah-author-image img {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+}
+
+.ah-author-name {
+    font-size: 18px;
+    line-height: 1.4;
+    color: #0c1422;
+    font-weight: 600;
+}
+
+.ah-author {
+    align-items: center;
+}
+.ah-libang-side-nav{
+    background: #004011 !important;
+}
+.ah-libang-side-nav .side-nav>li>a{
+    color: #ffffff !important;
+    font-weight: 600;
+}
+.ah-pub-date {
+    font-weight: 500;
+    font-size: 16px;
+}
+.uk-offcanvas-bar li>a:hover {
+    background: linear-gradient(to right, #e5e501 50%, #00711e 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all .5s ease;
+    border-radius: 6px;
+    padding-left: 10px;
+}
+.ahrelated-img {
+    height: 152px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.footer-nav {
+    background: #f1f1f1;
+    padding-top: 50px;
+}
+
+.footer-details h4 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.footer-details p {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+    color: #898989;
+}
+
+.footer-details h4 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.nav-btn-op .uk-navbar-nav>li>a {
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: none;
+    min-height: 25px !important;
+}
+
+.ah-scrtop {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    background: #0593cf;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    color: #fff !important;
+}
+
+.uk-totop {
+    color: #fff !important;
+}
+
+.ah-title-more {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Mukta';
+    color: #5f5f5f;
+}
+
+.ah-title-cat {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c2c2c;
+}
+
+.rich-para {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #111;
+    text-align: justify;
+}
+
+.news-item-img {
+    height: 165px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.ah-page-link a {
+    background: #ddd;
+    display: inline-block;
+    line-height: 40px;
+    min-width: 40px;
+    border-radius: 2px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 18px;
+    color: rgba(0, 0, 0, .68);
+    transition: all .3s ease-in-out;
+    padding: 0 10px;
+}
+
+.ah-page-next {
+    background: #ddd;
+    display: inline-block;
+    line-height: 40px;
+    min-width: 40px;
+    border-radius: 2px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 18px;
+    color: rgba(0, 0, 0, .68);
+    transition: all .3s ease-in-out;
+    padding: 0 10px;
+}
+
+.ah-pagination-item {
+    background: #277ef0;
+    display: inline-block;
+    line-height: 40px;
+    min-width: 40px;
+    border-radius: 2px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 18px;
+    color: rgba(0, 0, 0, .68);
+    transition: all .3s ease-in-out;
+    padding: 0 10px;
+}
+
+.uk-active .ah-page-link {
+    background: #0593cf !important;
+    color: #fff !important;
+}
+
+/* Statistics Cards */
+.uk-card-default {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.uk-card-default:hover {
+    border-color: #1e87f0;
+    transform: translateY(-5px);
+}
+
+/* Enhanced Person Card */
+.person-card {
+    display: block;
+    width: 220px;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow:
+        0 8px 25px rgba(30, 135, 240, 0.15),
+        0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    color: inherit;
+    border: 2px solid transparent;
+    position: relative;
+    z-index: 2;
+}
+
+.person-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow:
+        0 20px 40px rgba(30, 135, 240, 0.25),
+        0 12px 28px rgba(0, 0, 0, 0.15);
+    border-color: #1e87f0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .person-card {
+        width: 200px;
+    }
+
+}
+
+@media (max-width: 960px) {
+    .person-card {
+        width: 180px;
+    }
+
+}
+
+/* Loading Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Pagination Styling */
+.uk-pagination .uk-active>* {
+    background: #1e87f0;
+    color: white;
+}
+
+.uk-pagination>*> :hover {
+    background: #0f6ecd;
+    color: white;
+}
+
+@media (max-width: 575px) {
+    .ah-single-heading {
+        font-size: 35px;
+        line-height: 45px;
+    }
+
+    .footer-nav-sm {
+        grid-gap: 1rem;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .ah-banner-title {
+        font-size: 40px;
+        line-height: 1.2;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+    }
+
+    /* .uk-grid>* {
+    padding-left: 0px;
+    }
+    .uk-grid-column-medium>*, .uk-grid-medium>* {
+    padding-left: 0px;
+    } */
+}

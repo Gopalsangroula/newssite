@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Dark mode for the public pages, switched from the moon button in the menu.
+   Most colours follow from the names in site-header.css; the rest of this
+   file covers what UIkit and the older stylesheets set directly.
+   ========================================================================== */
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --site-blue: #1f57b8;
+    --site-blue-deep: #0d1f42;
+    --site-ink: #f0f3f8;
+    --site-text: #cdd4df;
+    --site-muted: #9aa4b4;
+    --site-line: #2d3543;
+    --site-wash: #1a202b;
+    --site-paper: #12161e;
+}
+
+html[data-theme="dark"],
+[data-theme="dark"] body {
+    background: var(--site-paper);
+    color: var(--site-text);
+}
+
+:where([data-theme="dark"]) a {
+    color: var(--site-ink);
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] .uk-h1,
+[data-theme="dark"] .uk-h2,
+[data-theme="dark"] .uk-h3,
+[data-theme="dark"] .uk-heading-small {
+    color: var(--site-ink);
+}
+
+/* The logo is dark blue on nothing, so it keeps a white card. */
+[data-theme="dark"] .site-mast__logo {
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #fff;
+}
+
+[data-theme="dark"] .uk-input,
+[data-theme="dark"] .uk-select,
+[data-theme="dark"] .uk-textarea {
+    border-color: var(--site-line);
+    background-color: var(--site-paper);
+    color: var(--site-ink);
+}
+
+[data-theme="dark"] .uk-card-default {
+    background: var(--site-wash);
+    color: var(--site-text);
+}
+
+[data-theme="dark"] .uk-text-muted,
+[data-theme="dark"] .uk-text-meta,
+[data-theme="dark"] .ah-pub-date {
+    color: var(--site-muted) !important;
+}
+
+/* Posts and pages */
+[data-theme="dark"] .ah-post-entry,
+[data-theme="dark"] .ah-post-entry p,
+[data-theme="dark"] .ah-post-entry li,
+[data-theme="dark"] .rich-para,
+[data-theme="dark"] .ah-author-name a {
+    color: var(--site-text) !important;
+}
+
+[data-theme="dark"] .uk-divider-icon {
+    filter: invert(1) brightness(.6);
+}
+
+[data-theme="dark"] .uk-icon-button {
+    background: var(--site-wash);
+    color: var(--site-text);
+}
+
+/* Inner pages */
+[data-theme="dark"] .lb-page {
+    --lb-paper: var(--site-wash);
+    --lb-green: #8fb3f0;
+    --lb-green-dark: #b9cff5;
+    --lb-mint: #1f2a3d;
+    --lb-mint-soft: #1a202b;
+    --lb-mint-line: var(--site-line);
+    --lb-red-soft: #3a1f26;
+    --lb-ink: var(--site-ink);
+    --lb-text: var(--site-text);
+    --lb-muted: var(--site-muted);
+    --lb-line: var(--site-line);
+    --lb-shadow: none;
+    --lb-shadow-hover: none;
+}
+
+/* Comments and the homepage notice dates */
+[data-theme="dark"] .pc__sent {
+    background: var(--site-wash);
+}
+
+[data-theme="dark"] .pc__count,
+[data-theme="dark"] .hp-board__date {
+    background: #3a1f26;
+    color: #ff9db0;
+}
+
+[data-theme="dark"] .hp-kicker:not(.hp-kicker--pill):not(.hp-kicker--gold) {
+    color: #ff9db0;
+}
+
+[data-theme="dark"] .hp-head__more,
+[data-theme="dark"] .hp-more:not(.hp-more--light) {
+    color: #a8c3f3;
+}
+
+[data-theme="dark"] .tool-band--good,
+[data-theme="dark"] .tool-band--moderate,
+[data-theme="dark"] .tool-band--sensitive,
+[data-theme="dark"] .tool-band--unhealthy,
+[data-theme="dark"] .tool-band--very-unhealthy {
+    filter: brightness(.92);
+}

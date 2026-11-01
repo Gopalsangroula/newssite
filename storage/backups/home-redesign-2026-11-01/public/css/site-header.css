@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Site header, loaded on the homepage and on every other public page
+   ========================================================================== */
+
+/* UIkit takes over a dropdown when its script starts. Until then, on a slow connection,
+   the open list would sit in the page and push the menu button off the screen. */
+.uk-navbar-dropdown:not(.uk-open) {
+    display: none;
+}
+
+.ah-menu-icon {
+    flex: none;
+    min-width: 40px;
+}
+
+.ah-brand-menu {
+    display: block;
+    min-width: 30px;
+    min-height: 30px;
+}
+
+@media (min-width: 960px) and (max-width: 1279.98px) {
+    .np-border .navigation-bar {
+        flex-wrap: nowrap;
+        gap: 12px;
+    }
+
+    .np-border .navigation-bar > li > a {
+        font-size: 17px;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 639.98px) {
+    .nav-edit .uk-navbar-nav > li > a {
+        min-height: 60px;
+    }
+
+    .ah-drop-icon {
+        top: 60px !important;
+    }
+}
+
+/* The full list is always in the menu, so these links go first when space runs out. */
+@media (max-width: 479.98px) {
+    .lb-nav-about {
+        display: none;
+    }
+
+    .donate-list {
+        padding: 8px 14px;
+        letter-spacing: 1px;
+    }
+}
+
+@media (max-width: 359.98px) {
+    .lb-nav-publication {
+        display: none;
+    }
+}

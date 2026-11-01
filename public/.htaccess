@@ -1,0 +1,62 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # One address for everyone: search engines see one site, and logins are never sent unencrypted.
+    # Cloudflare states what the visitor used, so this cannot loop whichever way it reaches this server.
+    RewriteCond %{HTTP_HOST} ^www\.libang\.org\.np$ [NC]
+    RewriteRule ^ https://libang.org.np%{REQUEST_URI} [R=301,L]
+
+    RewriteCond %{HTTP_HOST} ^libang\.org\.np$ [NC]
+    RewriteCond %{HTTP:X-Forwarded-Proto} ^http$ [NC]
+    RewriteRule ^ https://libang.org.np%{REQUEST_URI} [R=301,L]
+
+    # Hidden files such as .env are never served, wherever they are
+    RewriteRule (^|/)\.(?!well-known/) - [F,L]
+
+    # An uploaded file is never run or shown as a web page
+    RewriteRule ^storage/.*\.(php[0-9s]?|phtml|phar|pht|cgi|pl|py|sh|html?|shtml|svgz?|xml)$ - [F,L,NC]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # A missing file is answered here, without starting PHP
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(css|js|img|storage|build)/ - [R=404,L]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Pictures, styles and scripts rarely change, and styles and scripts carry a version in their address
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+</IfModule>
