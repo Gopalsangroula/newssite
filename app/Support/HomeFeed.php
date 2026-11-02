@@ -21,6 +21,8 @@ class HomeFeed
 
     private const MAX_LEAD_STORIES = 2;
 
+    private const MAX_BREAKING_STORIES = 8;
+
     /**
      * Sections beside the right-hand column, in page order. A section with no posts is left out.
      */
@@ -33,7 +35,7 @@ class HomeFeed
      * Full-width sections lower down the page.
      */
     private const WIDE_SECTIONS = [
-        'artha-bikas' => ['icon' => 'credit-card', 'layout' => 'feature', 'limit' => 4],
+        'artha' => ['icon' => 'credit-card', 'layout' => 'feature', 'limit' => 4],
         'baatchit' => ['icon' => 'microphone', 'layout' => 'feature', 'limit' => 4],
         'khelkud' => ['icon' => 'lifesaver', 'layout' => 'cards', 'limit' => 3],
         'kala' => ['icon' => 'paint-bucket', 'layout' => 'cards', 'limit' => 3],
@@ -41,6 +43,7 @@ class HomeFeed
 
     private ?Collection $categories = null;
     private ?Collection $leads = null;
+    private ?Collection $breaking = null;
 
     /**
      * The view data for the homepage.
@@ -50,6 +53,7 @@ class HomeFeed
         return [
             'categories' => $this->categories(),
             'leads' => $this->leads(),
+            'breaking' => $this->breaking(),
             'ticker' => $this->ticker(),
             'latestPosts' => $this->latestPosts(),
             'popularPosts' => $this->popularPosts(),
@@ -87,6 +91,31 @@ class HomeFeed
                 ->take(self::MAX_LEAD_STORIES)
                 ->get()
         )->whenEmpty(fn () => $this->attachCategories($this->news()->take(1)->get()));
+    }
+
+    /**
+     * Posts ticked "Breaking news", newest first, for their own section under the lead stories.
+     * They stay there until the box is unticked. A post leading the page is not repeated.
+     */
+    private function breaking(): Collection
+    {
+        return $this->breaking ??= $this->attachCategories(
+            Post::published()
+                ->forListing()
+                ->where('is_breaking', true)
+                ->whereNotIn('id', $this->leads()->pluck('id'))
+                ->latest('published_at')
+                ->take(self::MAX_BREAKING_STORIES)
+                ->get()
+        );
+    }
+
+    /**
+     * Posts already at the top of the page, which the sections further down leave out.
+     */
+    private function shownAbove(): Collection
+    {
+        return $this->leads()->pluck('id')->merge($this->breaking()->pluck('id'));
     }
 
     /**
@@ -135,7 +164,7 @@ class HomeFeed
             return $current;
         }
 
-        $posts = $this->attachCategories($this->news()->whereNotIn('id', $this->leads()->pluck('id'))->take(5)->get());
+        $posts = $this->attachCategories($this->news()->whereNotIn('id', $this->shownAbove())->take(5)->get());
 
         return $posts->isEmpty() ? null : (object) [
             'title' => 'पछिल्लो अपडेट',
@@ -212,7 +241,7 @@ class HomeFeed
     }
 
     /**
-     * Fetch published posts for a category, leaving out those already leading the page.
+     * Fetch published posts for a category, leaving out those already at the top of the page.
      */
     private function fetchPosts(string $categorySlug, int $limit, bool $wholeStory = false): Collection
     {
@@ -220,7 +249,7 @@ class HomeFeed
             Post::published()
                 ->when(! $wholeStory, fn ($query) => $query->forListing())
                 ->inCategories($this->familyIds($categorySlug))
-                ->whereNotIn('id', $this->leads()->pluck('id'))
+                ->whereNotIn('id', $this->shownAbove())
                 ->latest('published_at')
                 ->take($limit)
                 ->get()

@@ -17,8 +17,8 @@
                 @endif
                 <div class="hp-feature__body">
                     <h3><a href="{{ $firstUrl }}">{{ $first->title }}</a></h3>
-                    @if ($first->excerpt !== '')
-                        <p>{{ Str::limit($first->excerpt, 150) }}</p>
+                    @if ($first->summary(150) !== '')
+                        <p>{{ $first->summary(150) }}</p>
                     @endif
                 </div>
             </article>

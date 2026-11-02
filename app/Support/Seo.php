@@ -61,7 +61,7 @@ class Seo
             'title' => $content ? static::pageTitle($content, $site) : ($title ?: $site['home_title']),
             'social_title' => $content ? ($content->seo_title ?: $content->title) : ($title ?: $site['home_title']),
             'description' => Str::limit(static::plainText(
-                $content?->seo_description ?: $post?->sub_title ?: $content?->content ?: $description ?: $site['description']
+                $content?->seo_description ?: $post?->excerpt ?: $post?->sub_title ?: $content?->content ?: $description ?: $site['description']
             ), static::DESCRIPTION_MAX),
             'image' => static::imageUrl($content, $site),
             'url' => url()->current(),

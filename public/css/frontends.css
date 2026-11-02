@@ -156,6 +156,11 @@ h6 a {
     line-height: 28px;
 }
 
+.ah-single-video {
+    max-width: 960px;
+    margin: 0 auto 32px;
+}
+
 .ah-single-heading {
     font-family: "Mukta", sans-serif;
     font-size: 65px;
@@ -1574,30 +1579,3 @@ h6 a {
         justify-content: center;
     }
 }
-
-/* Share links on posts and pages */
-.post-share {
-    display: inline-flex;
-    gap: 6px;
-    vertical-align: middle;
-}
-
-.post-share__link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    color: #fff;
-}
-
-.post-share__link:hover {
-    color: #fff;
-    opacity: .85;
-}
-
-.post-share__link--facebook { background: #1877f2; }
-.post-share__link--whatsapp { background: #128c4b; }
-.post-share__link--x { background: #111; }
-.post-share__link--telegram { background: #1b82b8; }

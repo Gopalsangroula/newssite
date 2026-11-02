@@ -1,5 +1,6 @@
 /* ==========================================================================
-   Site header and footer, loaded on the homepage and on every other public page
+   Site header and footer, with the video player and share links that the homepage
+   and the other public pages both use. Loaded on every public page.
    ========================================================================== */
 
 :root {
@@ -512,6 +513,98 @@
     box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
 }
 
+/* Video player: a post's own video, on the homepage and on the post page.
+   site-tools.js swaps the button for YouTube or Facebook once it is pressed.
+   ========================================================================== */
+
+.site-player {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #111827;
+}
+
+.site-player > img,
+.site-player > iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover;
+}
+
+.site-player__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.site-player__play:hover {
+    color: #fff;
+}
+
+.site-player__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--site-red);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .35);
+    transition: transform .2s ease;
+}
+
+.site-player__button::before {
+    content: "";
+    margin-left: 5px;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-left: 21px solid #fff;
+}
+
+.site-player__play:hover .site-player__button {
+    transform: scale(1.08);
+}
+
+/* Share links on posts, pages and breaking news
+   ========================================================================== */
+
+.post-share {
+    display: inline-flex;
+    gap: 6px;
+    vertical-align: middle;
+}
+
+.post-share__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    color: #fff;
+}
+
+.post-share__link:hover {
+    color: #fff;
+    opacity: .85;
+}
+
+.post-share__link--facebook { background: #1877f2; }
+.post-share__link--whatsapp { background: #128c4b; }
+.post-share__link--x { background: #111; }
+.post-share__link--telegram { background: #1b82b8; }
+
 /* Screen sizes
    ========================================================================== */
 
@@ -627,6 +720,17 @@
     .site-footer__org,
     .site-footer__contact {
         grid-column: 1 / -1;
+    }
+
+    .site-player__button {
+        width: 58px;
+        height: 58px;
+    }
+
+    .site-player__button::before {
+        border-top-width: 11px;
+        border-bottom-width: 11px;
+        border-left-width: 17px;
     }
 }
 

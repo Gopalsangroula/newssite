@@ -16,6 +16,7 @@ use App\Models\Media;
 use App\Models\User;
 use Carbon\Carbon;
 use App\Livewire\Admin\Concerns\HasSeoFields;
+use App\Support\VideoLink;
 use Spatie\Permission\Exceptions\PermissionDoesNotExist;
 
 #[Title('Edit Post')]
@@ -25,12 +26,14 @@ class Edit extends Component
 
     public $title;
     public $sub_title;
+    public $kicker;
+    public $excerpt;
     public $slug;
     public $category_id;
-    public array $extra_categories = [];
     public $content;
     public $cover_image;
     public $cover_image_url;
+    public $video_url;
     public $is_featured = false;
     public $is_breaking = false;
     public $status = 'published';
@@ -88,11 +91,13 @@ class Edit extends Component
 
             $this->title = $this->temporaryPost->title;
             $this->sub_title = $this->temporaryPost->sub_title;
+            $this->kicker = $this->temporaryPost->kicker;
+            $this->excerpt = $this->temporaryPost->excerpt;
             $this->slug = $this->temporaryPost->slug;
             $this->category_id = $this->temporaryPost->category_id;
-            $this->extra_categories = $this->temporaryPost->extraCategories->pluck('id')->map(fn ($id) => (string) $id)->all();
             $this->content = $this->temporaryPost->content;
             $this->cover_image_url = $this->temporaryPost->cover_image ? Storage::url($this->temporaryPost->cover_image) : null;
+            $this->video_url = $this->temporaryPost->video_url;
             $this->is_featured = $this->temporaryPost->is_featured;
             $this->is_breaking = $this->temporaryPost->is_breaking;
             $this->status = $this->temporaryPost->status;
@@ -115,11 +120,14 @@ class Edit extends Component
         return [
             'title' => 'string|max:255',
             'sub_title' => 'nullable|string|max:255',
+            'kicker' => 'nullable|string|max:40',
+            'excerpt' => 'nullable|string|max:300',
             'slug' => 'nullable|string|unique:posts,slug,' . $this->temporaryPost->id,
             'category_id' => 'required|exists:categories,id',
             'content' => 'required|string',
             'cover_image' => 'nullable|image|max:2048',
             'cover_image_url' => 'nullable|string',
+            'video_url' => ['nullable', 'string', 'max:500', VideoLink::rule()],
             'is_featured' => 'boolean',
             'is_breaking' => 'boolean',
             'status' => 'required|in:published,draft,scheduled',
@@ -137,11 +145,14 @@ class Edit extends Component
         return [
             'title' => 'required|string|max:255',
             'sub_title' => 'nullable|string|max:255',
+            'kicker' => 'nullable|string|max:40',
+            'excerpt' => 'nullable|string|max:300',
             'slug' => 'nullable|string|unique:posts,slug,' . $this->temporaryPost->id,
             'category_id' => 'required|exists:categories,id',
             'content' => 'required|string',
             'cover_image' => 'nullable|image|max:2048',
             'cover_image_url' => 'nullable|string',
+            'video_url' => ['nullable', 'string', 'max:500', VideoLink::rule()],
             'is_featured' => 'boolean',
             'is_breaking' => 'boolean',
             'status' => 'in:draft',
@@ -281,9 +292,12 @@ class Edit extends Component
                 'category_id' => $validated['category_id'],
                 'title' => $validated['title'],
                 'sub_title' => $validated['sub_title'],
+                'kicker' => trim((string) $this->kicker) ?: null,
+                'excerpt' => trim(preg_replace('/\s+/u', ' ', (string) $this->excerpt)) ?: null,
                 'slug' => $validated['slug'],
                 'content' => $validated['content'],
                 'cover_image' => $coverImage,
+                'video_url' => trim((string) $this->video_url) ?: null,
                 'is_featured' => $this->is_featured,
                 'is_breaking' => $this->is_breaking,
                 'status' => $validated['status'],
@@ -296,7 +310,6 @@ class Edit extends Component
 
             // Sync authors
             $post->users()->sync($this->user_ids);
-            $post->extraCategories()->sync(array_diff($this->extra_categories, [$this->category_id]));
 
             Log::info('Post updated', [
                 'post_id' => $post->id,
@@ -441,9 +454,12 @@ class Edit extends Component
                 'category_id' => $validated['category_id'],
                 'title' => $validated['title'],
                 'sub_title' => $validated['sub_title'],
+                'kicker' => trim((string) $this->kicker) ?: null,
+                'excerpt' => trim(preg_replace('/\s+/u', ' ', (string) $this->excerpt)) ?: null,
                 'slug' => $validated['slug'],
                 'content' => $validated['content'],
                 'cover_image' => $coverImage,
+                'video_url' => trim((string) $this->video_url) ?: null,
                 'is_featured' => $this->is_featured,
                 'is_breaking' => $this->is_breaking,
                 'status' => 'draft',
@@ -456,7 +472,6 @@ class Edit extends Component
 
             // Sync authors
             $post->users()->sync($this->user_ids);
-            $post->extraCategories()->sync(array_diff($this->extra_categories, [$this->category_id]));
 
             Log::info('Draft saved', [
                 'post_id' => $post->id,

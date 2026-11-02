@@ -3,6 +3,7 @@
 
     @include('site.home-parts.ticker')
     @include('site.home-parts.lead')
+    @include('site.home-parts.breaking')
     @include('site.home-parts.ad-slot', ['placement' => 'header'])
 
     <div class="hp-wrap hp-layout">

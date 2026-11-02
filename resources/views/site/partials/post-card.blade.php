@@ -5,15 +5,7 @@
 @php
     $headingTag = $headingTag ?? 'h2';
     $cardTitle = trim($post->title);
-
-    // plainText() drops tags and Gutenberg block comments and decodes entities such as &nbsp;.
-    $excerpt = trim(preg_replace('~https?://\S+~u', '', \App\Support\Seo::plainText($post->sub_title ?: $post->content)));
-
-    // Many posts open by repeating the title, some have nothing else.
-    if (Str::startsWith($excerpt, $plainTitle = \App\Support\Seo::plainText($cardTitle))) {
-        $excerpt = preg_replace('/^[\s,।–—-]+/u', '', Str::after($excerpt, $plainTitle));
-    }
-
+    $excerpt = $post->summary(170);
     $cardDate = $post->published_at ?? $post->created_at;
     $cardAuthor = empty($hideAuthor) && $post->author?->id ? $post->author->name : null;
 @endphp
@@ -32,7 +24,7 @@
         </{{ $headingTag }}>
 
         @if($excerpt !== '')
-            <p class="lb-card__excerpt">{{ Str::limit($excerpt, 170) }}</p>
+            <p class="lb-card__excerpt">{{ $excerpt }}</p>
         @endif
 
         <p class="lb-card__meta">

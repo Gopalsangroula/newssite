@@ -31,7 +31,10 @@
                 <h2 class="uk-text-lead uk-text-muted uk-margin-medium-bottom">{{ $post->sub_title }}</h2>
                 @endif
 
-                @if($post->cover_image)
+                {{-- The post's own video takes the place of its picture, unless the story already plays it. --}}
+                @if($post->video && ! Str::contains($post->content, $post->video['id']))
+                    @include('site.partials.video-player', ['post' => $post, 'class' => 'ah-single-video', 'isFirst' => true])
+                @elseif($post->cover_image)
                 <div class="mb-8">
                     <img src="{{ \App\Support\Thumb::url($post->cover_image, 1024) }}" alt="{{ $post->title }}" title="{{ $post->img_desc }}" class="w-full h-auto rounded-lg shadow-md object-cover max-h-96" fetchpriority="high" decoding="async">
                 </div>

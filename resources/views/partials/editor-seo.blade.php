@@ -1,4 +1,5 @@
-{{-- SEO panel for the post and page forms. Expects $seoPath (the URL prefix), $seoUsesSubTitle and $seoPublicUrl. --}}
+{{-- SEO panel for the post and page forms. Expects $seoPath (the URL prefix), $seoUsesSubTitle and $seoPublicUrl,
+     and optionally $seoUsesExcerpt. --}}
 @php
     $seoSite = \App\Support\Seo::site();
     $seoConfig = [
@@ -6,6 +7,7 @@
         'domain' => parse_url(url('/'), PHP_URL_HOST),
         'path' => $seoPath,
         'usesSubTitle' => $seoUsesSubTitle,
+        'usesExcerpt' => $seoUsesExcerpt ?? false,
         'fallbackImage' => \App\Support\Seo::absoluteUrl($seoSite['share_image']),
         'titleMin' => \App\Support\Seo::TITLE_MIN,
         'titleMax' => \App\Support\Seo::TITLE_MAX,
@@ -49,8 +51,9 @@
                 return (this.$wire.seo_description || '').trim();
             },
             get description() {
+                const excerpt = this.config.usesExcerpt ? (this.$wire.excerpt || '').trim() : '';
                 const subTitle = this.config.usesSubTitle ? this.$wire.sub_title : '';
-                const text = this.customDescription || subTitle || this.body;
+                const text = this.customDescription || excerpt || subTitle || this.body;
                 return text.length > this.config.descriptionMax ? `${text.slice(0, this.config.descriptionMax)}...` : text;
             },
             get image() {

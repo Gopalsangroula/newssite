@@ -195,16 +195,6 @@
     margin-top: 10px;
     font-size: 14px;
 }
-.ah-check-list{
-    max-height: 220px;
-    overflow-y: auto;
-}
-.ah-check-list .ah-check{
-    margin-top: 6px;
-}
-.ah-check--child{
-    padding-left: 18px;
-}
 .ah-panel-danger{
     display: block;
     margin-top: 14px;
@@ -265,7 +255,7 @@
     margin: 0;
 }
 
-/* Tags and authors */
+/* Category, tags and authors */
 .ah-panel .choices{
     margin-bottom: 0;
 }

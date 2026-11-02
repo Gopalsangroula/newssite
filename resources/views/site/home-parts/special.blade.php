@@ -23,8 +23,8 @@
                         </a>
                     @endif
                     <h3><a href="{{ $centreUrl }}">{{ $centre->title }}</a></h3>
-                    @if ($centre->excerpt !== '')
-                        <p>{{ Str::limit($centre->excerpt, 190) }}</p>
+                    @if ($centre->summary(190) !== '')
+                        <p>{{ $centre->summary(190) }}</p>
                     @endif
                 </article>
 

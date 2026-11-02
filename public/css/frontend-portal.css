@@ -437,12 +437,301 @@ a.hp-kicker--pill:hover {
     background: var(--site-wash);
 }
 
+/* A video is wider than tall, so it keeps to the width of the title. */
+.hp-lead__video {
+    max-width: 1040px;
+    margin: 18px auto 0;
+}
+
+/* YouTube's own pictures carry black bars above and below, which only an even crop removes. */
+.hp .site-player > img {
+    object-position: 50% 50%;
+}
+
 .hp-lead__excerpt {
     max-width: 860px;
     margin: 16px auto 0;
     color: var(--site-text);
     font-size: 19px;
     line-height: 1.55;
+}
+
+/* Breaking news, under the lead stories. With more than one story, a timeline
+   runs beside them and each part scrolls on its own, as on a live page.
+   ========================================================================== */
+
+.hp-breaking {
+    padding-top: 30px;
+}
+
+.hp-breaking__box {
+    overflow: hidden;
+    border: 1px solid var(--site-line);
+    border-radius: 6px;
+    background: var(--site-paper);
+}
+
+.hp-breaking__bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--site-line);
+    background: var(--site-wash);
+    color: var(--site-red);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.hp-breaking__pulse {
+    position: relative;
+    flex: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--site-red);
+}
+
+.hp-breaking__body {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+}
+
+.hp-breaking__timeline {
+    display: flex;
+    flex-direction: column;
+    max-height: 640px;
+    border-right: 1px solid var(--site-line);
+    background: var(--site-wash);
+}
+
+.hp-breaking__live {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    padding: 12px 18px 10px;
+    border-bottom: 2px solid var(--site-red);
+    color: var(--site-red);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.hp-breaking__timeline ol {
+    flex: 1;
+    min-height: 0;
+    margin: 0;
+    padding: 16px 14px 4px 0;
+    overflow-y: auto;
+    list-style: none;
+}
+
+.hp-breaking__timeline li {
+    position: relative;
+    padding: 0 0 18px 44px;
+}
+
+/* The line from one time to the next, red below the story being read. */
+.hp-breaking__timeline li:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    bottom: -8px;
+    left: 21px;
+    width: 2px;
+    background: var(--site-line);
+}
+
+.hp-breaking__timeline li:has([aria-current])::before {
+    background: var(--site-red);
+}
+
+.hp-breaking__timeline li::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 14px;
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #c9d0da;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--site-red) 3.5px, var(--site-paper) 4px);
+}
+
+.hp-breaking__timeline a {
+    display: block;
+    color: var(--site-ink);
+}
+
+.hp-breaking__when {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--site-muted);
+    font-size: 14.5px;
+    line-height: 1.4;
+}
+
+.hp-breaking__headline {
+    display: block;
+    margin-top: 2px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.hp-breaking__timeline a:hover .hp-breaking__headline,
+.hp-breaking__timeline a[aria-current] .hp-breaking__headline {
+    color: var(--site-red);
+}
+
+.hp-breaking__feed {
+    position: relative;
+    max-height: 640px;
+    padding: 18px 20px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.hp-breaking__story {
+    padding: 16px;
+    border-radius: 6px;
+    background: var(--site-wash);
+}
+
+.hp-breaking__story + .hp-breaking__story {
+    margin-top: 22px;
+}
+
+.hp-breaking__time {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    margin: 0 0 12px;
+    padding: 2px 10px;
+    border-radius: 4px;
+    background: var(--site-red);
+    color: #fff;
+    font-size: 14.5px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.hp-breaking__media {
+    display: block;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--site-line);
+}
+
+.hp-breaking__text {
+    margin-top: 14px;
+}
+
+.hp-breaking__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.hp-breaking__head .post-share {
+    flex: none;
+    margin-top: 2px;
+}
+
+.hp-breaking__title {
+    margin: 0;
+    color: var(--site-ink);
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 1.38;
+}
+
+.hp-breaking__title a {
+    color: inherit;
+}
+
+.hp-breaking__title a:hover {
+    color: var(--site-red);
+}
+
+.hp-breaking__excerpt {
+    margin: 10px 0 0;
+    color: var(--site-text);
+    font-size: 17px;
+    line-height: 1.65;
+}
+
+.hp-breaking__more {
+    display: block;
+    width: fit-content;
+    margin: 8px 0 0 auto;
+    color: var(--site-red);
+    font-size: 15.5px;
+    font-weight: 700;
+}
+
+.hp-breaking__more::after {
+    content: " ↗";
+}
+
+.hp-breaking__more:hover {
+    color: var(--site-blue);
+}
+
+/* One story on its own: picture and words side by side, nothing to scroll. */
+.hp-breaking--single .hp-breaking__body {
+    display: block;
+}
+
+.hp-breaking--single .hp-breaking__feed {
+    max-height: none;
+    overflow: visible;
+}
+
+.hp-breaking--single .hp-breaking__story:has(.hp-breaking__media) {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 0 24px;
+    align-items: start;
+}
+
+.hp-breaking--single .hp-breaking__time {
+    grid-column: 1 / -1;
+}
+
+.hp-breaking--single .hp-breaking__story:has(.hp-breaking__media) .hp-breaking__text {
+    margin-top: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .hp-breaking__feed {
+        scroll-behavior: smooth;
+    }
+
+    .hp-breaking__pulse::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--site-red);
+        animation: hp-pulse 1.8s ease-out infinite;
+    }
+}
+
+@keyframes hp-pulse {
+    to {
+        opacity: 0;
+        transform: scale(2.6);
+    }
 }
 
 /* Main column and right-hand column
@@ -700,10 +989,15 @@ a.hp-kicker--pill:hover {
     line-height: 1.36;
 }
 
+/* An excerpt written in the editor can run longer than this card has room for. */
 .hp-feature__body p {
+    display: -webkit-box;
     margin: 6px 0 0;
+    overflow: hidden;
     color: var(--site-muted);
     font-size: 16px;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
 }
 
 .hp-feature__list {
@@ -1237,6 +1531,38 @@ a.hp-kicker--pill:hover {
         grid-template-columns: minmax(0, 1fr);
     }
 
+    /* Phones get the newest breaking story in full, then the times of the others. */
+    .hp-breaking__body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hp-breaking__feed {
+        order: -1;
+        max-height: none;
+        padding: 14px;
+        overflow: visible;
+    }
+
+    .hp-breaking__story + .hp-breaking__story,
+    .hp-breaking__timeline li:first-child {
+        display: none;
+    }
+
+    .hp-breaking__timeline {
+        max-height: none;
+        border-top: 1px solid var(--site-line);
+        border-right: 0;
+    }
+
+    .hp-breaking--single .hp-breaking__story:has(.hp-breaking__media) {
+        display: block;
+    }
+
+    .hp-breaking--single .hp-breaking__story:has(.hp-breaking__media) .hp-breaking__text {
+        margin-top: 14px;
+    }
+
     .hp-special__centre {
         order: -1;
     }
@@ -1343,6 +1669,28 @@ a.hp-kicker--pill:hover {
 
     .hp-lead__media {
         aspect-ratio: 16 / 10;
+    }
+
+    .hp-breaking {
+        padding-top: 22px;
+    }
+
+    .hp-breaking__bar {
+        padding: 10px 14px;
+        font-size: 22px;
+    }
+
+    .hp-breaking__story {
+        padding: 12px;
+    }
+
+    .hp-breaking__head {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .hp-breaking__title {
+        font-size: 21px;
     }
 
     .hp-lead__excerpt {

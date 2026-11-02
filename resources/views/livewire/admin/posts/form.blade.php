@@ -37,6 +37,7 @@
             @include('partials.editor-seo', [
                 'seoPath' => '/details/',
                 'seoUsesSubTitle' => true,
+                'seoUsesExcerpt' => true,
                 'seoPublicUrl' => $isEdit && $temporaryPost->status === 'published' ? route('frontend.details.show', $temporaryPost->slug) : null,
             ])
         </div>
@@ -60,6 +61,10 @@
                     <label class="ah-check"><input type="checkbox" class="uk-checkbox" wire:model="is_featured"> Featured</label>
                     <label class="ah-check"><input type="checkbox" class="uk-checkbox" wire:model="is_breaking"> Breaking news</label>
 
+                    <label class="ah-field-label" for="kicker">Top story label</label>
+                    <input type="text" wire:model="kicker" id="kicker" class="uk-input" maxlength="40" placeholder="e.g. विशेष">
+                    <p class="ah-panel-hint">The red tag above the title when this post is Featured at the top of the homepage. Leave it empty for none.</p>
+
                     @if ($isEdit)
                         <button type="button" class="ah-panel-danger" wire:click="deletePost" wire:confirm="Move this post to the trash?" wire:loading.attr="disabled">Move to trash</button>
                     @elseif ($temporaryPost)
@@ -71,27 +76,25 @@
             @include('partials.editor-cover')
 
             <details class="ah-panel" open wire:ignore.self>
-                <summary>Category</summary>
+                <summary>Featured video</summary>
                 <div class="ah-panel-body">
-                    <select class="uk-select" wire:model="category_id" id="category_id" aria-label="Category">
+                    <input type="url" wire:model.blur="video_url" id="video_url" @class(['uk-input', 'uk-form-danger' => $errors->has('video_url')]) placeholder="YouTube or Facebook link" aria-label="Featured video link">
+                    <p class="ah-panel-hint">Plays in place of the featured image at the top of the homepage, in Breaking news and on the post page. The featured image stays as its cover picture.</p>
+                </div>
+            </details>
+
+            <details class="ah-panel" open wire:ignore.self>
+                <summary>Category</summary>
+                <div class="ah-panel-body" wire:ignore>
+                    <select id="category_id" data-choice="category_id" aria-label="Category">
                         <option value="">Select a category</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" @selected($category->id == $category_id)>{{ $category->name }}</option>
                             @foreach ($category->children as $child)
-                                <option value="{{ $child->id }}">— {{ $child->name }}</option>
+                                <option value="{{ $child->id }}" @selected($child->id == $category_id)>— {{ $child->name }}</option>
                             @endforeach
                         @endforeach
                     </select>
-
-                    <span class="ah-field-label">Also show in</span>
-                    <div class="ah-check-list">
-                        @foreach ($categories as $category)
-                            <label class="ah-check"><input type="checkbox" class="uk-checkbox" wire:model="extra_categories" value="{{ $category->id }}"> {{ $category->name }}</label>
-                            @foreach ($category->children as $child)
-                                <label class="ah-check ah-check--child"><input type="checkbox" class="uk-checkbox" wire:model="extra_categories" value="{{ $child->id }}"> {{ $child->name }}</label>
-                            @endforeach
-                        @endforeach
-                    </div>
                 </div>
             </details>
 
@@ -114,6 +117,14 @@
                             <option value="{{ $user->id }}" @selected(in_array($user->id, $user_ids))>{{ $user->name }}</option>
                         @endforeach
                     </select>
+                </div>
+            </details>
+
+            <details class="ah-panel" open wire:ignore.self>
+                <summary>Excerpt</summary>
+                <div class="ah-panel-body">
+                    <textarea wire:model="excerpt" id="excerpt" @class(['uk-textarea', 'uk-form-danger' => $errors->has('excerpt')]) rows="4" maxlength="300" placeholder="A short summary of the story" aria-label="Excerpt"></textarea>
+                    <p class="ah-panel-hint">Shown under the headline on the homepage and in story lists, and in search and share previews unless SEO has its own description. Leave it empty to use the start of the story. Up to 300 characters.</p>
                 </div>
             </details>
 

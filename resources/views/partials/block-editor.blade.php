@@ -108,12 +108,25 @@
         }
     }, true);
 
+    // Searchable pickers: the category takes one value, tags and authors take several.
     fields.querySelectorAll('select[data-choice]').forEach((select) => {
-        new Choices(select, { removeItemButton: true, searchEnabled: true, shouldSort: false });
+        // Choices overwrites data-choice with its own "active" marker, so the field name is read first.
+        const field = select.dataset.choice;
+
+        new Choices(select, {
+            removeItemButton: select.multiple,
+            searchEnabled: true,
+            searchPlaceholderValue: 'Type to search',
+            // Every match, not the first four, and close matches only, so "शाखा" lists all the branches.
+            searchResultLimit: 100,
+            fuseOptions: { threshold: 0.3 },
+            shouldSort: false,
+            itemSelectText: '',
+        });
 
         select.addEventListener('change', () => {
             const values = Array.from(select.selectedOptions).map((option) => option.value);
-            $wire.$set(select.dataset.choice, values, false);
+            $wire.$set(field, select.multiple ? values : (values[0] ?? ''), false);
         });
     });
 

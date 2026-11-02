@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Support\Seo;
+use App\Support\VideoLink;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,8 +24,11 @@ class Post extends Model
         'category_id',
         'title',
         'sub_title',
+        'kicker',
+        'excerpt',
         'slug',
         'cover_image',
+        'video_url',
         'content',
         'is_featured',
         'is_breaking',
@@ -59,8 +63,8 @@ class Post extends Model
      * What a listing prints, apart from the opening of the story.
      */
     private const LISTING_COLUMNS = [
-        'id', 'created_by', 'published_by', 'category_id', 'title', 'sub_title', 'slug', 'cover_image',
-        'is_featured', 'is_breaking', 'status', 'views', 'published_at', 'created_at', 'updated_at',
+        'id', 'created_by', 'published_by', 'category_id', 'title', 'sub_title', 'kicker', 'excerpt', 'slug', 'cover_image',
+        'video_url', 'is_featured', 'is_breaking', 'status', 'views', 'published_at', 'created_at', 'updated_at',
     ];
 
     /**
@@ -153,15 +157,7 @@ class Post extends Model
     }
 
     /**
-     * Categories beyond the main one, so that a post can show in several sections.
-     */
-    public function extraCategories()
-    {
-        return $this->belongsToMany(Category::class, 'category_post');
-    }
-
-    /**
-     * Scope for posts filed in any of these categories, as the main one or an extra one.
+     * Scope for posts filed in any of these categories.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param iterable<int> $categoryIds
@@ -169,10 +165,7 @@ class Post extends Model
      */
     public function scopeInCategories($query, $categoryIds)
     {
-        return $query->where(function ($query) use ($categoryIds) {
-            $query->whereIn('category_id', $categoryIds)
-                ->orWhereHas('extraCategories', fn ($query) => $query->whereIn('categories.id', $categoryIds));
-        });
+        return $query->whereIn('category_id', $categoryIds);
     }
 
     /**
@@ -267,16 +260,32 @@ class Post extends Model
     }
 
     /**
-     * Plain text for a summary. Many posts open by repeating the title, some have nothing else.
+     * The summary under a headline. An excerpt written in the editor is printed as it is; without one,
+     * the opening of the story is cut to $limit characters. Many posts open by repeating the title,
+     * and some have nothing else.
      */
-    public function getExcerptAttribute(): string
+    public function summary(int $limit): string
     {
+        $excerpt = trim((string) $this->excerpt);
+
+        if ($excerpt !== '') {
+            return $excerpt;
+        }
+
         $text = trim(preg_replace('~https?://\S+~u', '', Seo::plainText($this->sub_title ?: $this->content)));
         $title = Seo::plainText($this->title);
 
-        return Str::startsWith($text, $title)
+        return Str::limit(Str::startsWith($text, $title)
             ? preg_replace('/^[\s,।–—-]+/u', '', Str::after($text, $title))
-            : $text;
+            : $text, $limit);
+    }
+
+    /**
+     * The YouTube or Facebook video that plays in place of the featured image, if there is one.
+     */
+    public function getVideoAttribute(): ?array
+    {
+        return VideoLink::parse($this->video_url);
     }
 
     /**

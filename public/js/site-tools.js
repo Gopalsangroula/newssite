@@ -178,12 +178,76 @@
 
     function playVideo(link) {
         var player = document.createElement('iframe');
+        var box = link.parentNode;
 
-        player.src = 'https://www.youtube-nocookie.com/embed/' + link.dataset.videoId + '?autoplay=1&rel=0';
+        // Facebook draws its player to the size it is given, so it gets the size of the box.
+        player.src = link.dataset.videoId
+            ? 'https://www.youtube-nocookie.com/embed/' + link.dataset.videoId + '?autoplay=1&rel=0'
+            : 'https://www.facebook.com/plugins/video.php?show_text=false&autoplay=true'
+                + '&width=' + Math.round(box.clientWidth) + '&height=' + Math.round(box.clientHeight)
+                + '&href=' + encodeURIComponent(link.dataset.facebookVideo);
         player.title = link.getAttribute('aria-label');
-        player.allow = 'autoplay; encrypted-media; picture-in-picture';
+        player.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
         player.allowFullscreen = true;
         link.replaceWith(player);
+    }
+
+    var breakingJump = 0;
+
+    function markBreaking(link) {
+        document.querySelectorAll('[data-breaking-story]').forEach(function (other) {
+            if (other === link) {
+                other.setAttribute('aria-current', 'true');
+            } else {
+                other.removeAttribute('aria-current');
+            }
+        });
+    }
+
+    // A time in the breaking news timeline scrolls the stories beside it. On a phone those
+    // stories do not scroll, so the link opens the story instead.
+    function showBreaking(link) {
+        var feed = document.querySelector('[data-breaking-feed]');
+        var story = document.getElementById(link.dataset.breakingStory);
+
+        if (!feed || !story || story.offsetParent !== feed || getComputedStyle(feed).overflowY !== 'auto') {
+            return false;
+        }
+
+        // The scroll passes other stories on its way; they must not take the highlight from this one.
+        clearTimeout(breakingJump);
+        breakingJump = setTimeout(function () {
+            breakingJump = 0;
+        }, 900);
+
+        markBreaking(link);
+        feed.scrollTop = story.offsetTop - parseFloat(getComputedStyle(feed).paddingTop);
+
+        return true;
+    }
+
+    // As the reader scrolls the stories, the time of the one at the top lights up.
+    function watchBreaking() {
+        var feed = document.querySelector('[data-breaking-feed]');
+
+        if (!feed || !window.IntersectionObserver) {
+            return;
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                var link = entry.isIntersecting && !breakingJump
+                    && document.querySelector('[data-breaking-story="' + entry.target.id + '"]');
+
+                if (link) {
+                    markBreaking(link);
+                }
+            });
+        }, { root: feed, rootMargin: '0px 0px -75% 0px' });
+
+        feed.querySelectorAll('article[id]').forEach(function (story) {
+            observer.observe(story);
+        });
     }
 
     document.addEventListener('submit', function (event) {
@@ -197,9 +261,13 @@
         var target = event.target;
         var control;
 
-        if ((control = target.closest('[data-video-id]'))) {
+        if ((control = target.closest('[data-video-id], [data-facebook-video]'))) {
             event.preventDefault();
             playVideo(control);
+        } else if ((control = target.closest('[data-breaking-story]'))) {
+            if (!event.ctrlKey && !event.metaKey && !event.shiftKey && showBreaking(control)) {
+                event.preventDefault();
+            }
         } else if (target.closest('[data-comment-again]')) {
             document.querySelector('[data-comment-sent]').hidden = true;
             document.querySelector('[data-comment-form]').hidden = false;
@@ -237,6 +305,7 @@
     refreshSaveButtons();
     renderSavedList();
     countRead();
+    watchBreaking();
 
     var size = parseInt(read(SIZE_KEY), 10);
 
